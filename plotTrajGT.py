@@ -26,7 +26,7 @@ x_GT=[]
 y_GT=[]
 z_GT=[]
 for transList in linesList:
-    #print(transList)
+    print(transList)
     x_GT.append(transList[3])
     y_GT.append(transList[7])
     z_GT.append(transList[11])

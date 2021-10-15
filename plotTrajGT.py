@@ -6,6 +6,7 @@ This is a small tool to plot the trajectary of Kitti groundtruth
 
 import os
 import matplotlib.pyplot as plt
+import numpy as np
 
 #-----------------------Configuration--------------------------
 pose_path = '/media/hzx/data/Kitti/poses/'
@@ -14,8 +15,7 @@ sequence = '00'
 poseName = os.path.join(pose_path, sequence+'.txt')
 figName = os.path.join(result_path, sequence+'.jpg')
 
-
-isSaveFig = True
+isSaveFig = False
 #--------------------------------------------------------------
 
 file = open(poseName, 'r')
@@ -25,20 +25,24 @@ linesList = [line.strip().split(' ') for line in linesList]
 x_GT=[]
 y_GT=[]
 z_GT=[]
+
 for transList in linesList:
-    print(transList)
-    x_GT.append(transList[3])
-    y_GT.append(transList[7])
-    z_GT.append(transList[11])
+    x_GT.append(float(transList[3]))
+    y_GT.append(float(transList[7]))
+    z_GT.append(float(transList[11]))
 
-l3 = plt.plot(x_GT,z_GT,color = 'red')#,label = "ground truth")
+# 设置坐标轴的取值范围
+#plt.xlim((-100, 1000))
+#plt.ylim((-100, 1000))
 
-
+plt.figure()
+plt.plot(x_GT,z_GT,color = 'red',label = "ground truth")
+plt.xlabel('x')
+plt.ylabel('z')
 
 #plt.legend(handles = l3, labels = 'Groundtruth', loc = 'best')
-
     
-plt.title('sequence '+ sequence)
+#plt.title('sequence '+ sequence)
 print('save sequence '+sequence)
 
 if isSaveFig:
@@ -46,4 +50,6 @@ if isSaveFig:
     print('trajectory is saved!')
 else:
     plt.show()
+
+
 
